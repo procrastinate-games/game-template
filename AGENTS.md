@@ -11,3 +11,5 @@
 - Push to `main` to publish. Check GitHub Actions for the URL and outcome; the portal refreshes automatically after deployment.
 - Done means: a fresh start works, the player can win or lose and restart, controls are explained, and the browser console has no unhandled errors.
 - Commit author and committer: `kifrip <25287470+kifrip@users.noreply.github.com>`.
+
+- Read `docs/platform-project-notes.md` when present for game-specific architecture and checks.

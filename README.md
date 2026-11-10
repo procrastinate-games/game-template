@@ -3,7 +3,7 @@
 1. Choose **Use this template → Create a new repository**, select **procrastinate-games**, make it public, and name it with a kebab-case game slug.
 2. Install the skill in the new repository: `npx skills add playableintelligence/game-creator` (optionally `-a claude-code`, `-a codex` or another agent).
 3. Ask your AI: “Make a game about X”. It follows `AGENTS.md` and [GAME-CREATOR.md](GAME-CREATOR.md): plans the game with you, builds it, fills the English `public/game.json` and sets `status` to `published`.
-4. Push to `main`. GitHub Actions tests, builds and publishes it, then refreshes the portal automatically.
+4. Push to `main`. The shared [game-publisher](https://github.com/procrastinate-games/game-publisher) workflow tests, builds and publishes it, then refreshes the portal automatically.
 
 Your game URL is `https://pg-<repository-name>.register-c02.workers.dev/`. See **Actions → Publish game** for progress. No per-game Cloudflare setup or tokens are needed.
 

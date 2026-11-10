@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "slug": "game-template",
+  "status": "draft",
+  "title": "Your game title",
+  "shortDescription": "A short invitation to play.",
+  "description": "Describe the player, goal, and main challenge in two or three sentences.",
+  "primaryCategory": "Casual",
+  "categories": [
+    "Casual"
+  ],
+  "dimension": "2D",
+  "controls": [
+    "Describe keyboard controls.",
+    "Describe touch controls."
+  ],
+  "languages": "English",
+  "saveNote": "Describe what is saved locally.",
+  "coverAlt": "Describe the game cover.",
+  "accent": "lime",
+  "startQuery": "",
+  "featured": false,
+  "showSource": false
+}

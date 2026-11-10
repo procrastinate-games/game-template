@@ -14,19 +14,36 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
+        with:
+          lfs: true
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
-      - name: Validate game metadata
+      - name: Platform checks
+        run: node --test "scripts/platform/*.test.mjs"
+      - name: Read game status
         id: manifest
+        env:
+          MANIFEST: public/game.json
+        run: node scripts/platform/validate.mjs
+      # A fresh template has no game yet; the game's own scaffold adds package.json.
+      - name: Install dependencies
+        if: hashFiles('package.json') != ''
+        run: npm ci
+      - name: Game tests
+        if: hashFiles('package.json') != ''
+        run: npm run test --if-present
+      - name: Build
+        if: hashFiles('package.json') != ''
+        run: npm run build
+      - name: Validate built metadata
+        if: steps.manifest.outputs.publish == 'true'
         run: node scripts/platform/validate.mjs
       - name: Install smoke-test browser
         if: steps.manifest.outputs.publish == 'true'
-        run: npx playwright install --with-deps chromium
+        run: |
+          npm install --no-save @playwright/test@1.65.0
+          npx --no-install playwright install --with-deps chromium
       - name: Smoke-test the production build
         if: steps.manifest.outputs.publish == 'true'
         run: node scripts/platform/smoke.mjs
@@ -44,7 +61,7 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
-          npx --no-install wrangler deploy --name "pg-${GITHUB_REPOSITORY#*/}" --keep-vars
+          npx --yes wrangler@4.159.0 deploy --name "pg-${GITHUB_REPOSITORY#*/}" --keep-vars
       - name: Verify live game
         if: steps.manifest.outputs.publish == 'true'
         run: node scripts/platform/verify.mjs

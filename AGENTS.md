@@ -1,30 +1,23 @@
 # Games to Procrastinate To
 
-## Game creation workflow
+<!-- platform:start. Keep this whole block, unchanged, when game-creator's agents-bootstrap writes or regenerates AGENTS.md. Put the game's own sections below platform:end. -->
 
-- Use [PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) for game creation and iteration. Read [docs/game-creator.md](docs/game-creator.md) first for loading instructions and the platform integration rules.
-- Default to its `make-game` skill for projects of any complexity; use `viral-game` for a one-session game when that matches the user’s request. Load the relevant engine, design, assets, audio and QA skills as needed. Follow the selected workflow’s planning, state documents, architecture and gameplay verification.
-- This repository is a publishing shell, not a chosen engine or an approved game design. The empty canvas and example test are replaceable starter content. Choose scope, engine and architecture with the user through the skill; keep the publishing contract below.
-- During scaffolding or agents-bootstrap, merge the skill’s game-specific instructions into this file while retaining the platform rules and the link to docs/game-creator.md. Keep CLAUDE.md and GEMINI.md as pointers to AGENTS.md.
+## Start here
+
+- Use [PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) for game creation and iteration (`make-game` by default). Read [GAME-CREATOR.md](GAME-CREATOR.md) first: it lists where this platform replaces the skill's own steps (scaffolding, deployment, monetization, Git LFS, tests).
+- This repository starts with publishing files only, no game code. Read `docs/platform-project-notes.md` when present for game-specific architecture and checks.
 
 ## Platform publishing contract
 
-- The deployed game must be a static browser build: client code only, no required backend or external runtime services. This contract supports both small games and substantial browser games.
+- The game is a static browser build: client code only, no required backend or external runtime services. Use npm; `npm ci` and `npm run build` must work, and the build writes the complete game to `dist/`, including `dist/game.json` copied from `public/game.json`. Game tests go in `npm test`.
 - Repository name = game slug. Publishing URL: `https://pg-<slug>.register-c02.workers.dev/`.
-- Support iframe embedding and relative asset URLs; never navigate the parent window. For new games, default to keyboard and touch controls and layouts from 360 px through landscape. Mobile support is required unless the owner explicitly approves a device exception in the gameplan; complexity alone is not an exception. Preserve an existing explicit exception when maintaining a game. Set supportedDevices in public/game.json to the devices actually supported, and describe the real controls; desktop-only games must be labelled on the portal.
-- Store new saves in localStorage under `pg:<slug>:`. Preserve all existing save keys and formats when maintaining a game; never reset or migrate player data without explicit instructions.
-- No trackers, advertising, or unlicensed third-party assets.
-- Keep `npm test` and `npm run build` passing. Existing game-specific checks must also pass.
-- When playable, fill every field in `public/game.json` with English catalog text, set slug to the repository name, add `public/cover.webp` (960×600), and set status to `published`. `draft` skips deployment; `hidden` deploys without a catalog card.
-- Do not change `.github/workflows/`, `wrangler.jsonc`, or the Worker name while making a game. Never add tokens or secrets to code.
-- Push to `main` to publish. Check GitHub Actions for the URL and outcome; the portal refreshes automatically after deployment.
-- Done means: a fresh start works, the intended gameplay loop and feedback/progression work, controls are explained, and the browser console has no unhandled errors. Test win/loss/restart where the design includes them; sandbox, idle and other open-ended games need their own acceptance criteria.
+- Support iframe embedding and relative asset URLs (`base: './'` for Vite); never navigate the parent window.
+- Devices: new games support desktop and mobile (keyboard and touch, layouts from 360 px through landscape). Desktop-only needs an explicit owner-approved exception recorded in the gameplan; complexity alone is not an exception. Set `supportedDevices` in `public/game.json` to what actually works (`["desktop", "mobile"]` or `["desktop"]`) and describe the real controls.
+- Saves: new localStorage keys use the prefix `pg:<slug>:`. Never rename, reset or migrate existing save keys or formats without explicit instructions.
+- Assets: commit them as regular files, each at most 25 MiB (Cloudflare limit). No trackers, advertising or unlicensed third-party assets.
+- When playable: fill every field in `public/game.json` with English catalog text, set `slug` to the repository name, add `public/cover.webp` (960×600) and set `status` to `published`. `draft` skips deployment; `hidden` deploys without a catalog card.
+- Do not change `.github/workflows/`, `wrangler.jsonc`, `scripts/platform/` or the Worker name. Never add tokens or secrets to code.
+- Push to `main` to publish. Check GitHub Actions for the URL and outcome; the portal refreshes automatically.
 - Commit author and committer: `kifrip <25287470+kifrip@users.noreply.github.com>`.
 
-- Read `docs/platform-project-notes.md` when present for game-specific architecture and checks.
-
-## Verification effort
-
-- Keep the selected skill’s required gameplay/runtime checks and existing game tests. Use focused local checks for the change and reuse successful results for unchanged code. Do not repeat full suites just because a development phase ended or an instruction file changed; CI already runs the release checks. Repeat or broaden checks when a change or failure warrants it. Capture screenshots for visual checks and report concise results; inspect detailed logs on failures.
-
-- New games default to `supportedDevices: ["desktop", "mobile"]` in public/game.json. Use `["desktop"]` only for an explicit owner-approved desktop-only exception. Verify touch input and layout for games that declare mobile support.
+<!-- platform:end -->

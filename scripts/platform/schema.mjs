@@ -12,6 +12,7 @@ export function validateManifest(game, expectedSlug) {
     if (!Array.isArray(game[key]) || !game[key].length || game[key].some(s => typeof s !== 'string' || !s.trim())) throw new Error(`Invalid ${key}`);
   }
   if (!game.categories.includes(game.primaryCategory)) throw new Error('primaryCategory must be in categories');
+  if (game.supportedDevices !== undefined && (!Array.isArray(game.supportedDevices) || !game.supportedDevices.length || new Set(game.supportedDevices).size !== game.supportedDevices.length || game.supportedDevices.some(device => !['desktop', 'mobile'].includes(device)))) throw new Error('Invalid supportedDevices');
   if (!['2D', '3D'].includes(game.dimension)) throw new Error('Invalid dimension');
   if (!['lime', 'coral', 'purple'].includes(game.accent)) throw new Error('Invalid accent');
   for (const key of ['featured', 'showSource']) {

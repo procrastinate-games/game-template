@@ -11,7 +11,7 @@
 
 - The deployed game must be a static browser build: client code only, no required backend or external runtime services. This contract supports both small games and substantial browser games.
 - Repository name = game slug. Publishing URL: `https://pg-<slug>.register-c02.workers.dev/`.
-- Support iframe embedding and relative asset URLs; never navigate the parent window. For new games, default to keyboard and touch controls and layouts from 360 px through landscape. For an existing game, preserve the user-approved target platforms and controls in docs/gameplan.md and docs/tech.md; adding a mobile port is a separate gameplay task. Catalog controls must describe actual support.
+- Support iframe embedding and relative asset URLs; never navigate the parent window. For new games, default to keyboard and touch controls and layouts from 360 px through landscape. Mobile support is required unless the owner explicitly approves a device exception in the gameplan; complexity alone is not an exception. Preserve an existing explicit exception when maintaining a game. Set supportedDevices in public/game.json to the devices actually supported, and describe the real controls; desktop-only games must be labelled on the portal.
 - Store new saves in localStorage under `pg:<slug>:`. Preserve all existing save keys and formats when maintaining a game; never reset or migrate player data without explicit instructions.
 - No trackers, advertising, or unlicensed third-party assets.
 - Keep `npm test` and `npm run build` passing. Existing game-specific checks must also pass.
@@ -26,3 +26,5 @@
 ## Verification effort
 
 - Keep the selected skill’s required gameplay/runtime checks and existing game tests. Use focused local checks for the change and reuse successful results for unchanged code. Do not repeat full suites just because a development phase ended or an instruction file changed; CI already runs the release checks. Repeat or broaden checks when a change or failure warrants it. Capture screenshots for visual checks and report concise results; inspect detailed logs on failures.
+
+- New games default to `supportedDevices: ["desktop", "mobile"]` in public/game.json. Use `["desktop"]` only for an explicit owner-approved desktop-only exception. Verify touch input and layout for games that declare mobile support.

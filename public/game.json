@@ -20,5 +20,9 @@
   "accent": "lime",
   "startQuery": "",
   "featured": false,
-  "showSource": false
+  "showSource": false,
+  "supportedDevices": [
+    "desktop",
+    "mobile"
+  ]
 }

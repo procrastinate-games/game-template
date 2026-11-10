@@ -13,3 +13,8 @@ test('invalid metadata and address overrides cannot enter the catalog', () => {
     assert.throws(() => validateManifest({ ...draft, ...patch }));
   }
 });
+
+test('device declarations accept supported targets and reject invalid lists', () => {
+ for (const supportedDevices of [['desktop'], ['desktop', 'mobile']]) assert.doesNotThrow(() => validateManifest({...draft, supportedDevices}));
+ for (const supportedDevices of [[], ['console'], ['desktop', 'desktop'], 'desktop']) assert.throws(() => validateManifest({...draft, supportedDevices}), /supportedDevices/);
+});

@@ -17,3 +17,5 @@ This template uses [PlayableIntelligence/game-creator](https://github.com/Playab
 If your AI supports the upstream installer, install the skill in the game project using `npx skills add playableintelligence/game-creator` (optionally `-a codex`, `-a claude-code` or another supported agent). This is a setup command, not something the template or Actions executes automatically. An AI without native skill support can read the upstream Markdown workflow and its linked phase documents; see the integration guide.
 
 The upstream skill supplies game planning, architecture, assets, audio and QA. This platform supplies publishing: keep the existing Actions workflow, Wrangler configuration, metadata and catalog contract. The guide explains how to merge scaffold instructions and adapt the upstream deployment/monetization steps.
+
+Device support: new games must support desktop and mobile unless the owner explicitly approves an exception. Declare `supportedDevices: ["desktop", "mobile"]` in game.json, or `["desktop"]` for an approved desktop-only game. The portal labels desktop-only games on cards and before launch.

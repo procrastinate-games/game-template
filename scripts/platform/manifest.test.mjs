@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { validateManifest } from '../scripts/platform/schema.mjs';
-const draft = { ...JSON.parse(readFileSync(new URL('../public/game.json', import.meta.url))), slug: 'game-template', status: 'draft' };
+import { validateManifest } from './schema.mjs';
+const draft = { ...JSON.parse(readFileSync(new URL('../../public/game.json', import.meta.url))), slug: 'game-template', status: 'draft' };
 test('new template repositories stay drafts until the owner fills their slug', () => {
   assert.equal(validateManifest(draft, 'new-game').status, 'draft');
   assert.throws(() => validateManifest({ ...draft, status: 'published' }, 'new-game'), /slug/);

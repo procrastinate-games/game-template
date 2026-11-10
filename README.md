@@ -1,21 +1,10 @@
 # Make a new game
 
 1. Choose **Use this template → Create a new repository**, select **procrastinate-games**, make it public, and name it with a kebab-case game slug.
-2. Open it in your preferred AI and ask “Use PlayableIntelligence/game-creator to make a game about X”. It should follow `AGENTS.md` and [the game-creator integration guide](docs/game-creator.md), finish the game and its English `public/game.json`, and set `status` to `published`.
-3. Push to `main`. GitHub Actions tests, builds and publishes it, then refreshes the portal automatically.
+2. Install the skill in the new repository: `npx skills add playableintelligence/game-creator` (optionally `-a claude-code`, `-a codex` or another agent).
+3. Ask your AI: “Make a game about X”. It follows `AGENTS.md` and [GAME-CREATOR.md](GAME-CREATOR.md): plans the game with you, builds it, fills the English `public/game.json` and sets `status` to `published`.
+4. Push to `main`. GitHub Actions tests, builds and publishes it, then refreshes the portal automatically.
 
 Your game URL is `https://pg-<repository-name>.register-c02.workers.dev/`. See **Actions → Publish game** for progress. No per-game Cloudflare setup or tokens are needed.
 
-The initial template is a draft: it runs checks but publishes nothing. `hidden` publishes a game without a portal card. Include a 960×600 `public/cover.webp`; the portal captures the running game if it is missing. Template games can use canvas, Phaser, Three.js or DOM rendering; only the static `dist/` build contract matters.
-
-Local development: `npm ci`, `npm run dev`. Before pushing: `npm test`, `npm run build`.
-
-## Game Creator
-
-This template uses [PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) as the development workflow. `make-game` supports planned, multi-session projects; `viral-game` is available for a small one-session game. Game complexity is a design choice, not a template limit. The final game must still build as a static browser game for this platform.
-
-If your AI supports the upstream installer, install the skill in the game project using `npx skills add playableintelligence/game-creator` (optionally `-a codex`, `-a claude-code` or another supported agent). This is a setup command, not something the template or Actions executes automatically. An AI without native skill support can read the upstream Markdown workflow and its linked phase documents; see the integration guide.
-
-The upstream skill supplies game planning, architecture, assets, audio and QA. This platform supplies publishing: keep the existing Actions workflow, Wrangler configuration, metadata and catalog contract. The guide explains how to merge scaffold instructions and adapt the upstream deployment/monetization steps.
-
-Device support: new games must support desktop and mobile unless the owner explicitly approves an exception. Declare `supportedDevices: ["desktop", "mobile"]` in game.json, or `["desktop"]` for an approved desktop-only game. The portal labels desktop-only games on cards and before launch.
+The template contains no game code: the skill scaffolds the engine it picks with you (canvas, Phaser, Three.js, DOM…). Until then `status` is `draft` and CI only checks `public/game.json`. `hidden` publishes a game without a portal card. Include a 960×600 `public/cover.webp`; otherwise the portal captures the running game.

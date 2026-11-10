@@ -11,7 +11,7 @@
 
 - The deployed game must be a static browser build: client code only, no required backend or external runtime services. This contract supports both small games and substantial browser games.
 - Repository name = game slug. Publishing URL: `https://pg-<slug>.register-c02.workers.dev/`.
-- Support iframe embedding, relative asset URLs, keyboard and touch controls, widths from 360 px and landscape. Never navigate the parent window.
+- Support iframe embedding and relative asset URLs; never navigate the parent window. For new games, default to keyboard and touch controls and layouts from 360 px through landscape. For an existing game, preserve the user-approved target platforms and controls in docs/gameplan.md and docs/tech.md; adding a mobile port is a separate gameplay task. Catalog controls must describe actual support.
 - Store new saves in localStorage under `pg:<slug>:`. Preserve all existing save keys and formats when maintaining a game; never reset or migrate player data without explicit instructions.
 - No trackers, advertising, or unlicensed third-party assets.
 - Keep `npm test` and `npm run build` passing. Existing game-specific checks must also pass.

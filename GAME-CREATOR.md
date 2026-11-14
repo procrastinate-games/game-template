@@ -31,3 +31,7 @@
 Resume from the game's `docs/STATE.md`, `docs/gameplan.md`, `docs/tech.md`, ADRs and milestones; never rerun fresh-project scaffolding over a game or swap its approved stack. Preserve existing save keys, device exceptions and game-specific checks. Game-specific notes live in that game's `docs/platform-project-notes.md`.
 
 If a real requirement cannot satisfy both the skill and the platform, explain the conflict instead of silently dropping either side. Explicit user instructions take precedence.
+
+## Platform discovery and domain
+
+Use https://procrastinate.games/catalog-manifest.json for the current published collection; never infer the collection from an old README or a fixed list of examples. New games use `https://<slug>.procrastinate.games/` via `useCustomDomain: true` in public/game.json. Keep this setting when scaffolding. Publishing is still owned by the shared workflow, including automatic custom-domain attachment; no extra hosting service or per-game DNS setup.

@@ -11,9 +11,10 @@
 
 - The game is a static browser build: client code only, no required backend or external runtime services. Use npm; `npm ci` and `npm run build` must work, and the build writes the complete game to `dist/`, including `dist/game.json` copied from `public/game.json`. Game tests go in `npm test`.
 - Before pushing, run `npm test`, `npm run build` and `npx --yes github:procrastinate-games/game-publisher#v1` (checks `game.json` locally).
-- Repository name = game slug. Publishing URL: `https://pg-<slug>.register-c02.workers.dev/`.
+- Repository name = game slug. Public game URL: `https://<slug>.procrastinate.games/`. Keep `useCustomDomain: true` in `public/game.json`; the shared publisher attaches the subdomain and verifies HTTPS before refreshing the portal. Worker name stays `pg-<slug>`; its workers.dev URL remains available.
 - Support iframe embedding and relative asset URLs (`base: './'` for Vite); never navigate the parent window.
 - Devices: new games support desktop and mobile (keyboard and touch, layouts from 360 px through landscape). Desktop-only needs an explicit owner-approved exception recorded in the gameplan; complexity alone is not an exception. Set `supportedDevices` in `public/game.json` to what actually works (`["desktop", "mobile"]` or `["desktop"]`) and describe the real controls.
+- Never maintain a list or count of platform games in instructions. For the current collection, read `https://procrastinate.games/catalog-manifest.json` and the organization repositories; use each game’s live `game.json` for its verified details. The portal discovers publications automatically.
 - Saves: new localStorage keys use the prefix `pg:<slug>:`. Never rename, reset or migrate existing save keys or formats without explicit instructions.
 - Assets: commit them as regular files, each at most 25 MiB (Cloudflare limit). No trackers, advertising or unlicensed third-party assets.
 - When playable: fill every field in `public/game.json` with English catalog text, set `slug` to the repository name, add `public/cover.webp` (960×600) and set `status` to `published`. `draft` skips deployment; `hidden` deploys without a catalog card.

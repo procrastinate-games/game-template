@@ -31,7 +31,7 @@ This is the shared standard for **new games created from this template**. Apply 
 
 ## Editorial quality is a release requirement
 
-Author and edit **natural Russian and natural English**. A technically accurate translation can still be awkward, unclear or unsuitable for the game's voice. Do not treat successful tests, a clean build or the fact that text is already in a design document as proof of editorial quality.
+Apply the **same quality standard to every shipped language**, including English, Russian and any languages explicitly added later: natural phrasing, grammatical correctness, clear meaning, consistent terminology and the intended style/humor. English being the default does not give it a lower or higher editorial standard. It must retain the game's personality rather than becoming dry, generic copy. A technically accurate translation can still be awkward or unsuitable for the voice. Do not treat successful tests, a clean build or text already present in a design document as proof of editorial quality.
 
 - Treat design-document labels as working names unless explicitly marked immutable. Improve awkward names while preserving their meaning, the mechanics and the intended setting. For example, a working label such as `Жар-печать` may read better as `Огненная печать`; this is an editorial choice, not a rule to rename every unusual fantasy term.
 - Keep approved dialogue as a voice reference. Preserve deliberate jokes, wordplay, dialect, character voices, poetic language and an explicitly requested unusual style. Adapt humor thoughtfully between languages rather than forcing a literal translation. Do not flatten all characters into neutral interface prose.
@@ -39,7 +39,16 @@ Author and edit **natural Russian and natural English**. A technically accurate 
 - Brevity must preserve natural syntax and meaning. For example, `Одна руна найдена. Верните её Антариону в библиотеке` is better expressed as `Вы нашли забытую руну. Отнесите её Антариону в библиотеку` when that is the actual objective.
 - Recheck numbers, costs, durations, ranges and quest conditions against the implemented rules. Improving prose must not change the rules or promise an action that is not available.
 
-Before release, perform a **separate editorial pass**: read every player-facing string in each language, review dialogue and quests in sequence, unify terminology, and inspect the result on game screens. Make corrections autonomously within the approved voice and scope. Record intentional stylistic exceptions so later editing does not erase them. Do not claim human/native-speaker review unless it actually occurred.
+Before the first release, complete **one bounded editorial check of all player-facing text in each shipped language**: read coherent groups of strings, review dialogue and quests in sequence, unify terminology, and inspect the result on game screens. Make corrections autonomously within the approved voice and scope. Record intentional stylistic exceptions so later editing does not erase them. Do not claim human/native-speaker review unless it actually occurred.
+
+## Efficient review
+
+- Edit each language **while authoring it**; write idiomatic text immediately instead of generating rough literal translations for a later full rewrite.
+- Reuse a short glossary and approved voice examples. Keep good, unchanged strings rather than paraphrasing them to demonstrate review.
+- Review first-release catalogs in coherent batches with relevant mechanics/context, without repeatedly rereading the entire codebase or retranslating approved content.
+- After edits, review **changed strings and affected context**: connected dialogue/quest steps, shared terms, grammatical variants and parameters. Broaden only when changes affect more content; do not routinely re-review or rewrite whole catalogs.
+- Automate key/parameter checks. Separate agents and repeated unchanged gameplay routes are not required for copy edits; run checks relevant to changed behavior/layout.
+- Keep QA notes to reviewed languages/scope, issues/fixes and intentional exceptions. Do not print catalogs or per-string explanations unless requested. Reduce duplicate work while retaining full coverage for each new language.
 
 ## Required verification
 
@@ -49,8 +58,8 @@ Include these checks in the game's ordinary QA, using the existing test tools wh
 - The visible globe buttons work with keyboard and touch in the main and in-game menus; both language names and the active choice are readable.
 - Switching English → Russian → English updates the current UI and active content without changing gameplay state or losing progress.
 - The selected language survives reload and a new run. Missing/invalid preferences safely select English. Storage failures do not prevent language switching during the current session.
-- Catalog key/parameter completeness is checked automatically. Dynamic messages and representative Russian counts (for example 1, 2 and 5) are checked for correct wording.
-- Both languages are inspected at the supported desktop and mobile sizes, including the longest labels, Cyrillic text, open menus and dialogue/quest screens.
-- The separate editorial pass is completed for both languages and summarized in the release QA notes, alongside the actual test/build outcomes and any remaining limitations.
+- Catalog key/parameter completeness is checked automatically for every shipped language. Dynamic messages and representative plural/grammar cases are checked where relevant (for example Russian counts of 1, 2 and 5).
+- Every shipped language is inspected at supported desktop and mobile sizes, including the longest labels, required glyphs, open menus and dialogue/quest screens. Use representative screens rather than replaying identical gameplay separately for every locale.
+- Editorial coverage is recorded for every shipped language: complete text coverage for a new release/language, then changed text and affected context for later edits. Summarize the actual review, test/build outcomes and remaining limitations concisely in release QA notes.
 
 This template is intentionally codeless. These are requirements for the game the agent builds; the template's own publishing check validates only its draft manifest and does not automatically prove a future game's localization or language quality.

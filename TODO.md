@@ -5,7 +5,7 @@ Keep tasks here, not a fixed list/count of games. Discover current games from th
 ## Shared rules and existing-game adoption
 
 - [x] Make `PLATFORM.md` the canonical common policy, with linked localization/versioning/integration standards in this repository and a session-start remote-policy loader in AGENTS.md.
-- [ ] Roll the loader and mandatory versioning reference into all current game repositories, preserving project architecture, owner-approved device exceptions, saves and local verification instructions. Verify Markdown-only diffs and remote files; record the rollout commit/verification in the completion note.
+- [x] Roll the loader and mandatory versioning reference into all game repositories discovered during this rollout, preserving project architecture, owner-approved device exceptions, saves and local verification instructions. Remote MD-only diffs/contents and skipped game deployments verified: [rollout record](docs/policy-loader-rollout-2026-11-14.md).
 - [ ] At each existing game's next actual player-facing update, establish/continue its semantic version, add a short CHANGELOG entry, expose the version in its menus and tie the deployed release to its exact source SHA. This runtime/release adoption is separate from the Markdown-only rollout; never manufacture old versions or reset player saves.
 
 ## Shared publisher and portal integration

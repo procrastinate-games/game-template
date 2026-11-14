@@ -1,27 +1,17 @@
 # Games to Procrastinate To
 
-<!-- platform:start. Keep this whole block, unchanged, when game-creator's agents-bootstrap writes or regenerates AGENTS.md. Put the game's own sections below platform:end. -->
+<!-- platform:bootstrap:start — preserve this loader; common policy is remote, not copied here. -->
+## Load current platform rules at session start
 
-## Start here
+1. Resolve `procrastinate-games/game-template` branch `main` to a commit SHA using GitHub tools/API or `gh api repos/procrastinate-games/game-template/commits/main --jq .sha`.
+2. Fetch and read `PLATFORM.md` at that exact SHA before planning or editing. Source: `https://github.com/procrastinate-games/game-template/blob/main/PLATFORM.md` (raw/API access is fine). Read the central `VERSIONING.md` for game releases, `GAME-CREATOR.md` for game workflow, and `LOCALIZATION.md` for new games or localization/text work, all at the same SHA.
+3. Reuse those fetched documents for this session; do not repeatedly fetch them or copy their full text into this repo. Record the policy SHA in the session handoff when one is written. Refresh at the start of the next session.
+4. Central documents define shared platform policy; local sections and `docs/platform-project-notes.md` define this game's architecture and explicit owner-approved exceptions. Keep existing saves, origins, stack and exceptions. Local copies of old platform guides are historical references, not the current common policy. Explicit user instructions take precedence.
+5. If remote access fails, say so and use a previously verified cached revision if available, identifying its SHA. Without a verified copy, continue independent inspection but do not guess new platform requirements or claim current-policy compliance; resolve access before policy-dependent publishing.
 
-- Use [PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) for game creation and iteration (`make-game` by default). Read [GAME-CREATOR.md](GAME-CREATOR.md) first: it lists where this platform replaces the skill's own steps (scaffolding, deployment, monetization, Git LFS, tests).
-- This repository starts without game code. Read `docs/platform-project-notes.md` when present for game-specific architecture and checks.
-- Read [LOCALIZATION.md](LOCALIZATION.md) before planning player-facing text or scaffolding UI. It defines the required English/Russian release, language selector, and editorial checks for every new game.
+Keep this loader and the project-specific sections when regenerating agent instructions. `CLAUDE.md` and `GEMINI.md` should point here. A Markdown loader instructs compliant agents; GitHub does not automatically sync template descendants or enforce that every tool fetches policy.
+<!-- platform:bootstrap:end -->
 
-## Platform publishing contract
+## Template-specific notes
 
-- The game is a static browser build: client code only, no required backend or external runtime services. Use npm; `npm ci` and `npm run build` must work, and the build writes the complete game to `dist/`, including `dist/game.json` copied from `public/game.json`. Game tests go in `npm test`.
-- Before pushing, run `npm test`, `npm run build` and `npx --yes github:procrastinate-games/game-publisher#v1` (checks `game.json` locally).
-- Repository name = game slug. Public game URL: `https://<slug>.procrastinate.games/`. Keep `useCustomDomain: true` in `public/game.json`; the shared publisher attaches the subdomain and verifies HTTPS before refreshing the portal. Worker name stays `pg-<slug>`; its workers.dev URL remains available.
-- Support iframe embedding and relative asset URLs (`base: './'` for Vite); never navigate the parent window.
-- Devices: new games support desktop and mobile (keyboard and touch, layouts from 360 px through landscape). Desktop-only needs an explicit owner-approved exception recorded in the gameplan; complexity alone is not an exception. Set `supportedDevices` in `public/game.json` to what actually works (`["desktop", "mobile"]` or `["desktop"]`) and describe the real controls.
-- Languages: new games ship English (`en`) and Russian (`ru`), start in English on a fresh launch, and provide a visible globe selector in main and pause/settings menus. Follow [LOCALIZATION.md](LOCALIZATION.md) for implementation and QA. Apply the same language/voice quality standard to every shipped locale: edit while authoring, check all new content before release, then review changes and affected context. Additional languages only when requested.
-- Never maintain a list or count of platform games in instructions. For the current collection, read `https://procrastinate.games/catalog-manifest.json` and the organization repositories; use each game’s live `game.json` for its verified details. The portal discovers publications automatically.
-- Saves: new localStorage keys use the prefix `pg:<slug>:`. Never rename, reset or migrate existing save keys or formats without explicit instructions.
-- Assets: commit them as regular files, each at most 25 MiB (Cloudflare limit). No trackers, advertising or unlicensed third-party assets.
-- When playable: fill every field in `public/game.json` with English catalog text, set `slug` to the repository name, add `public/cover.webp` (960×600) and set `status` to `published`. `draft` skips deployment; `hidden` deploys without a catalog card.
-- Publishing runs in the shared [game-publisher](https://github.com/procrastinate-games/game-publisher) workflow. Do not change `.github/workflows/publish.yml` or the Worker name, and do not add another deploy workflow. Never add tokens or secrets to code.
-- Push to `main` to publish. Check GitHub Actions for the URL and outcome; the portal refreshes automatically.
-- Commit author and committer: `kifrip <25287470+kifrip@users.noreply.github.com>`.
-
-<!-- platform:end -->
+This repository is a codeless starter and the canonical home of shared policy. Edit `PLATFORM.md`, `LOCALIZATION.md`, `VERSIONING.md` and the integration guide here; do not add a game engine to the template. For an authorized policy edit in this repository, the local files being reviewed are the proposed next policy revision; validate and publish them here without requiring a circular remote update first. Preserve `.github/workflows/publish.yml` and the draft manifest. Track unfinished shared integrations in `TODO.md`.

@@ -16,3 +16,9 @@ The template's draft catalog is a placeholder. Set `languages` to `English, Russ
 Keep `useCustomDomain: true` in `public/game.json`. The shared publisher creates the Workers Custom Domain and verifies HTTPS before refreshing the portal. Worker names stay `pg-<slug>` and workers.dev remains available. Do not manually add per-game DNS records or a second deploy workflow. Existing games without this flag keep their current origins; changing an existing origin requires an explicit migration decision.
 
 Do not copy a platform game list into game instructions. Read the live catalog at https://procrastinate.games/catalog-manifest.json and verify game details with its live game.json.
+
+## One source of platform rules
+
+Edit shared policy in [PLATFORM.md](PLATFORM.md), with [localization](LOCALIZATION.md) and [versioning](VERSIONING.md) standards in this same repository. Each game's AGENTS.md loads the current central policy at session start, pinned to one resolved commit for that session, then applies its local architecture and approved exceptions. Template descendants do not sync themselves; this loader is the bridge. Agents report unavailable policy access rather than claiming an automatic sync occurred.
+
+Public game updates require a semantic version and a 1–3 bullet CHANGELOG entry, tied to the deployed commit; pushing directly to main remains supported. See [VERSIONING.md](VERSIONING.md). Documentation-only work does not create a game release. [TODO.md](TODO.md) tracks existing-game adoption and the remaining publisher/portal/feedback integration.

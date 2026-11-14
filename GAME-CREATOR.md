@@ -1,6 +1,6 @@
 # Game Creator on this platform
 
-[PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) owns game design, planning docs, architecture, assets, audio and QA. This repository owns publishing (see the platform block in AGENTS.md). This page lists only the places where the two meet.
+[PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) owns game design, planning docs, architecture, assets, audio and QA. The central [PLATFORM.md](PLATFORM.md) owns shared publishing policy; each game keeps a thin loader in AGENTS.md. This page lists only the places where the two meet.
 
 ## Load the workflow
 
@@ -13,7 +13,7 @@
 | Skill step | On this platform |
 | --- | --- |
 | Scaffold with `/use-template` or an official scaffolder | Scaffolders refuse or offer to wipe a non-empty directory, so: 1. Generate the starter in a temporary directory outside this repository. 2. Copy all its files here except `.git` and `.github`; merge `.gitignore`, and replace README with the game's own. 3. Make the build match the contract in AGENTS.md: npm, output in `dist/`, relative asset URLs (`base: './'` for Vite), and `public/game.json` copied into `dist/`. 4. Delete the temporary directory. |
-| agents-bootstrap writes `AGENTS.md` / `CLAUDE.md` | Keep the `platform:start … platform:end` block at the top of AGENTS.md unchanged and add the skill's sections below it. Keep CLAUDE.md as the single line `@AGENTS.md` and GEMINI.md as a pointer. |
+| agents-bootstrap writes `AGENTS.md` / `CLAUDE.md` | Preserve the `platform:bootstrap:start … platform:bootstrap:end` loader in AGENTS.md, then add game-specific sections. Load current central policy instead of regenerating a copied platform contract. Keep CLAUDE.md as the single line `@AGENTS.md` and GEMINI.md as a pointer. |
 | Skill or reference assumes a single language, browser-language detection, or postpones localization | Apply [LOCALIZATION.md](LOCALIZATION.md) from planning onward: ship English and Russian, default a fresh launch to English, expose a globe selector in the main and pause/settings menus, and preserve the choice without resetting progress. A reference supplied in one language is not a reason to omit the other. |
 | game-qa / release checks | Apply [LOCALIZATION.md](LOCALIZATION.md): all shipped languages have the same quality/voice standard. Check while authoring, verify new content before release, then review changes and affected context. Include selector, persistence, catalog and layout checks without redundant rewrites or gameplay runs. |
 | asset-pipeline suggests Git LFS | Do not enable LFS by default; commit assets as regular files (≤25 MiB each). Use LFS only with the owner's approval: CI fetches LFS files, but every publish uses LFS bandwidth. |
@@ -27,6 +27,10 @@
 - Step 0: do not ask about monetization; use `none`. Step 1.25 (gateables) is therefore skipped.
 - Step 1: scaffold into this repository using the recipe above, not into a separate project directory.
 - Step 4 (here.now) and Step 5 (monetize): skip. Publish by pushing to `main` after filling `public/game.json` and setting `status`.
+
+## Release versions
+
+Follow [VERSIONING.md](VERSIONING.md) for every player-facing game release, including direct-main workflows: one semantic version and a 1–3 bullet changelog entry per ready update, tied to the deployed commit. Markdown-only work does not bump game versions.
 
 ## Existing games
 

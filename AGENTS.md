@@ -6,6 +6,7 @@
 
 - Use [PlayableIntelligence/game-creator](https://github.com/PlayableIntelligence/game-creator) for game creation and iteration (`make-game` by default). Read [GAME-CREATOR.md](GAME-CREATOR.md) first: it lists where this platform replaces the skill's own steps (scaffolding, deployment, monetization, Git LFS, tests).
 - This repository starts without game code. Read `docs/platform-project-notes.md` when present for game-specific architecture and checks.
+- Read [LOCALIZATION.md](LOCALIZATION.md) before planning player-facing text or scaffolding UI. It defines the required English/Russian release, language selector, and editorial checks for every new game.
 
 ## Platform publishing contract
 
@@ -14,6 +15,7 @@
 - Repository name = game slug. Public game URL: `https://<slug>.procrastinate.games/`. Keep `useCustomDomain: true` in `public/game.json`; the shared publisher attaches the subdomain and verifies HTTPS before refreshing the portal. Worker name stays `pg-<slug>`; its workers.dev URL remains available.
 - Support iframe embedding and relative asset URLs (`base: './'` for Vite); never navigate the parent window.
 - Devices: new games support desktop and mobile (keyboard and touch, layouts from 360 px through landscape). Desktop-only needs an explicit owner-approved exception recorded in the gameplan; complexity alone is not an exception. Set `supportedDevices` in `public/game.json` to what actually works (`["desktop", "mobile"]` or `["desktop"]`) and describe the real controls.
+- Languages: every new game ships complete English (`en`) and Russian (`ru`), with English on a fresh launch regardless of browser language. Put a visible globe language button in the main menu and in-game pause/settings menu; offer `English` and `Русский`, remember the choice, and switch without resetting progress. Keep player-facing strings in locale catalogs and apply [LOCALIZATION.md](LOCALIZATION.md). Review both languages before release, especially natural Russian phrasing; preserve deliberate jokes, character voices and explicitly requested stylization. Additional languages are out of scope unless requested.
 - Never maintain a list or count of platform games in instructions. For the current collection, read `https://procrastinate.games/catalog-manifest.json` and the organization repositories; use each game’s live `game.json` for its verified details. The portal discovers publications automatically.
 - Saves: new localStorage keys use the prefix `pg:<slug>:`. Never rename, reset or migrate existing save keys or formats without explicit instructions.
 - Assets: commit them as regular files, each at most 25 MiB (Cloudflare limit). No trackers, advertising or unlicensed third-party assets.

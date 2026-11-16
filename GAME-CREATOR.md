@@ -28,6 +28,29 @@
 - Step 1: scaffold into this repository using the recipe above, not into a separate project directory.
 - Step 4 (here.now) and Step 5 (monetize): skip. Publish by pushing to `main` after filling `public/game.json` and setting `status`.
 
+## Model tiers for delegated work
+
+When the agent delegates steps to subagents, give judgment-heavy work to the strongest available model and well-specified, verifiable work to a faster, cheaper tier. Use tiers, not fixed model IDs: names change often, so check your tool's current list.
+
+| Strong tier (top reasoning/coding model) | Fast tier (cheaper/faster model of the same provider) |
+| --- | --- |
+| Idea phase, game design and `docs/gameplan.md` | QA runs: build, tests, runtime and iterate checks, with a screenshot review and a fixed-format report |
+| Orchestration: decisions, policy conflicts, accepting results | Fixes from a concrete issue list |
+| Core gameplay implementation (scaffold step, game logic, multi-system features) | Audio from the `game-audio` skill |
+| Art and visual design judged from screenshots (pixel art, lighting, polish) | `public/game.json`, `cover.webp` capture, README, `docs/STATE.md`, implementation status |
+| Editorial review of every shipped language ([LOCALIZATION.md](LOCALIZATION.md)) | Small targeted UI or text fixes |
+
+- The strong session stays responsible: it re-runs its own checks (build, tests, screenshots) before accepting fast-tier work. If a fast-tier step fails verification twice, redo it on the strong tier.
+- Delegated agents start without context. Give them a self-contained brief: paths, files to read, constraints, done criteria and the report format.
+- A fast-tier draft of player-facing text needs a strong-tier editorial review before release.
+- If a tool cannot choose a model per subagent, run the step in the main session. Missing model choice must not block the work.
+
+### Tool mappings
+
+- **Claude Code**: strong = Opus (pass `model: "opus"` explicitly); fast = Sonnet (`CLAUDE_CODE_SUBAGENT_MODEL=sonnet` makes it the default for subagents without a model; otherwise pass `model: "sonnet"`).
+
+**Agent without a mapping here:** the first time you read this section, tell the owner briefly how your tool could apply these tiers. Say which of your current models fit the strong and fast tiers, whether and how a subagent's model can be chosen, and any known pitfalls. Then offer a short mapping in the same style as the line above. Add it to this list only after the owner approves it, as a policy edit in game-template. Until then, follow the tiers above as closely as your tool allows, and don't block the game work on this.
+
 ## Release versions
 
 Follow [VERSIONING.md](VERSIONING.md) for every player-facing game release, including direct-main workflows: one semantic version and a 1–3 bullet changelog entry per ready update, tied to the deployed commit. Markdown-only work does not bump game versions.

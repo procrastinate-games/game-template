@@ -28,7 +28,13 @@ Canonical source: `procrastinate-games/game-template/PLATFORM.md`. All game repo
 
 Use checks relevant to the change and preserve existing required game tests. A release must pass the game checks, build and publishing validation above. Reuse successful results for unchanged code; broaden checks for new changes, failures or unresolved concerns. A sandbox/idle game needs its own acceptance criteria rather than an invented win/lose condition.
 
-For a verified Markdown-only policy/instruction change, validate the diff and document links; do not rebuild or redeploy unchanged games or bump their game versions. A commit message with `[skip ci]` can avoid a push-triggered publish run when every changed file is documentation. Do not use this bypass for runtime/config/manifest/asset changes. Never edit publishing workflows just to skip documentation runs.
+For a verified Markdown-only policy/instruction change, validate the diff and document links; do not rebuild or redeploy unchanged games or bump their game versions. A commit message with `[skip ci]` can avoid a push-triggered publish run when every changed file is documentation or an AI usage report under `.ai-usage/`. Do not use this bypass for runtime/config/manifest/asset changes. Never edit publishing workflows just to skip documentation runs.
+
+## AI usage reporting
+
+- At the end of each task or session in a game repository, record the agent's token usage as a JSON report in `.ai-usage/`, following [agent-kit/AI_USAGE.md](https://github.com/procrastinate-games/game-ai-usage/blob/main/agent-kit/AI_USAGE.md) in `procrastinate-games/game-ai-usage`. The [Game AI Usage dashboard](https://github.com/procrastinate-games/game-ai-usage) aggregates these reports.
+- Use the shared reporter script for exact numbers from local agent logs. Never estimate or invent token counts: when the agent cannot see its usage (for example Codex Cloud), write an `accuracy: "unknown"` report with `null` token fields.
+- Commit the report with the task's changes. A push whose only changes are `.ai-usage/` reports uses `[skip ci]`; reports count on the dashboard once they are on `main`.
 
 ## Maintaining this source of truth
 

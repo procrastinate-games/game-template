@@ -41,3 +41,7 @@ For a verified Markdown-only policy/instruction change, validate the diff and do
 - Change shared rules here or in the central linked standard; local game instructions hold only the loader, game-specific information and approved exceptions.
 - [TODO.md](TODO.md) tracks cross-repository adoption and unfinished platform integrations. Discover the current repositories/catalog when doing a rollout; do not maintain a fixed platform game list/count in instruction files.
 - The template is intentionally codeless. New-game scaffolders must preserve its loader; generating a repository from a GitHub template copies files once and does not create an automatic upstream sync.
+
+## Public discovery and SEO
+
+Every game README must contain a Markdown link to https://procrastinate.games/. Preserve it when replacing the starter README. Use accurate English catalog metadata from public/game.json for titles, descriptions and social previews; do not invent reviews or ratings. The shared publisher applies static title/description/canonical/Open Graph/Twitter/VideoGame metadata and generates robots.txt and sitemap.xml in the tested dist artifact. Published games are indexable; hidden games remain noindex and drafts never deploy. Keep the game documents crawlable and never add blanket noindex/X-Robots-Tag or robots disallow rules to public releases. The portal automatically generates its own indexable detail routes and sitemap entries from published game metadata; no manual game roster or extra deployment workflow is needed.

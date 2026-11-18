@@ -22,3 +22,5 @@ Do not copy a platform game list into game instructions. Read the live catalog a
 Edit shared policy in [PLATFORM.md](PLATFORM.md), with [localization](LOCALIZATION.md) and [versioning](VERSIONING.md) standards in this same repository. Each game's AGENTS.md loads the current central policy at session start, pinned to one resolved commit for that session, then applies its local architecture and approved exceptions. Template descendants do not sync themselves; this loader is the bridge. Agents report unavailable policy access rather than claiming an automatic sync occurred.
 
 Public game updates require a semantic version and a 1–3 bullet CHANGELOG entry, tied to the deployed commit; pushing directly to main remains supported. See [VERSIONING.md](VERSIONING.md). Documentation-only work does not create a game release. [TODO.md](TODO.md) tracks existing-game adoption and the remaining publisher/portal/feedback integration.
+
+Browse the collection at [Games to Procrastinate To](https://procrastinate.games/). Keep this link in each generated game README. The shared publisher supplies SEO metadata and sitemaps for published games; see PLATFORM.md.

@@ -1,0 +1,22 @@
+{
+  "schema": "game-ai-usage/report@2",
+  "report_id": "23bf42aa-fc12-4c09-8cd6-6d3d7749af70",
+  "repo": "procrastinate-games/game-template",
+  "date": "2026-11-18",
+  "accuracy": "unknown",
+  "models": [
+    {
+      "provider": "openai",
+      "model": null,
+      "price_tier": null,
+      "calls": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "reasoning_tokens": null,
+      "cache_read_tokens": null,
+      "cache_write_tokens": null,
+      "cache_write_5m_tokens": null,
+      "cache_write_1h_tokens": null
+    }
+  ]
+}
